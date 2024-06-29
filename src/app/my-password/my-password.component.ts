@@ -1,29 +1,8 @@
 import { Component } from '@angular/core';
-
-enum PasswordStrength {
-  Empty = 0,
-  LessThan8 = 1,
-  Weak = 2,
-  Medium = 3,
-  Strong = 4,
-}
-
-enum Colors {
-  Red = '#DC143C',
-  Gray = '#C8C8C8',
-  Green = '#03C03C',
-  Yellow = '#f1ea65',
-}
-
-const letters = /[a-z]/;
-const numbers = /[0-9]/;
-const symbols = /[\W_]/;
-
-interface DifficultlyColors {
-  color1: Colors;
-  color2: Colors;
-  color3: Colors;
-}
+import { getPasswordStrength } from '../../services/getPasswordStrength';
+import { PasswordStrength } from '../../types/PasswordStrength';
+import { Colors } from '../../types/Colors';
+import { DifficultlyColors } from '../../types/DifficultlyColors';
 
 @Component({
   selector: 'app-my-password',
@@ -43,6 +22,7 @@ export class MyPasswordComponent {
     if (this.passwordStrength === PasswordStrength.Strong) {
       alert('Your password is strong: "' + this.password + '". Good Job!');
       this.password = '';
+      this.passwordStrength = PasswordStrength.Empty;
       this.setDifficultyColors(Colors.Gray, Colors.Gray, Colors.Gray);
       return;
     }
@@ -67,41 +47,8 @@ export class MyPasswordComponent {
   }
 
   onPasswordChange() {
-    this.passwordStrength = this.getPasswordStrength(this.password);
+    this.passwordStrength = getPasswordStrength(this.password);
     this.updateDifficultyColors(this.passwordStrength);
-  }
-
-  getPasswordStrength(password: string): PasswordStrength {
-    if (password.length === 0) {
-      return PasswordStrength.Empty;
-    } else if (password.length < 8) {
-      return PasswordStrength.LessThan8;
-    } else {
-      const strength = {
-        letters: letters.test(password),
-        numbers: numbers.test(password),
-        symbols: symbols.test(password),
-      };
-
-      let strengthCount = 0;
-
-      for (const key in strength) {
-        if (strength[key as keyof typeof strength]) {
-          strengthCount++;
-        }
-      }
-
-      switch (strengthCount) {
-        case 1:
-          return PasswordStrength.Weak;
-        case 2:
-          return PasswordStrength.Medium;
-        case 3:
-          return PasswordStrength.Strong;
-        default:
-          return PasswordStrength.Empty;
-      }
-    }
   }
 
   updateDifficultyColors(strength: PasswordStrength) {
