@@ -1,27 +1,50 @@
-# TtPasswordApp
+# Password Strength Checker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+[DEMO LINK](https://my-password-app.vercel.app/ "DEMO LINK")
 
-## Development server
+This Angular application provides a password strength checker. It allows users to enter a password and see real-time feedback on the strength of the password using a color-coded system.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+- Real-time Feedback: The strength of the password - is updated in real-time as the user types.
+- Password Strength Calculation: The application evaluates the password strength based on the combination of letters, digits, and symbols.
+- Visual Indicators: The strength of the password is visually represented using color-coded sections.
 
-## Code scaffolding
+## Password Strength Criteria
+1. Empty Password:
+All sections are gray.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. Password Length Less Than 8 Characters:
+All sections are red.
 
-## Build
+3. Password is Easy (only letters or only digits or only symbols):
+The first section is red, and the rest are gray.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+4. Password is Medium (combination of letters-symbols, letters-digits, or digits-symbols):
+The first two sections are yellow, and the last one is gray.
 
-## Running unit tests
+5. Password is Strong (combination of letters, symbols, and digits):
+All sections are green.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Installation
+1. Clone the repository:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+`git clone https://github.com/your-username/password-strength-checker.git`
 
-## Further help
+`cd password-strength-checker`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+Install dependencies:
+
+`npm install`
+
+Run the application:
+
+```ng serve```
+
+Navigate to http://localhost:4200/ to see the application in action.
+
+## Usage
+1. Open the application in your browser.
+2. Enter a password in the input field.
+3. Observe the color-coded sections below the input field which indicate the strength of the password based on the criteria mentioned above.
